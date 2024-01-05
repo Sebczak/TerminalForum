@@ -4,21 +4,19 @@ import java.util.List;
 class forumUser extends User {
 
     private String userName;
-    private int amountOfPosts;
-    private boolean isUserLogged;
+    private int amountOfPosts = 0;
+    private boolean isUserLogged = false;
     private final String newline = "\n";
 
-    public forumUser(String userFirstName, String userLastName, String userGender, int userAge, String userEmail, String userName, int amountOfPosts, boolean isUserLogged) {
+    public forumUser(String userFirstName, String userLastName, String userGender, int userAge, String userEmail, String userName) {
 
         super(userFirstName, userLastName, userGender, userAge, userEmail);
         this.userName = userName;
-        this.amountOfPosts = amountOfPosts;
-        this.isUserLogged = isUserLogged;
     }
 
-    public void isUserLogged(String userName) {
+    public void userLogged() {
 
-        if (userName.equals("Sebczak") && isUserLogged) {
+        isUserLogged = true;
             System.out.print(
                     "Zalogowano użytkownika " + getUserName() + newline
                             + "Nazwa użytkownika: " + getUserName() + newline
@@ -29,10 +27,15 @@ class forumUser extends User {
                             + "Adres Email: " + getUserEmail() + newline
                             + "Ilość postów na platformie: " + comments.size() + newline
             );
-        } else {
-            System.out.print("Nie zalogowano");
         }
-    }
+
+        public void userLogin() {
+            if(!isUserLogged) {
+                isUserLogged = true;
+            } else {
+                isUserLogged = false;
+            }
+        }
 
     public List<String> comments = new ArrayList<>();
 
