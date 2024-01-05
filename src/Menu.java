@@ -1,5 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
 
@@ -16,10 +17,10 @@ public class Menu {
 
     public void performAction(forumUser user) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj nazwę użytkownika: ");
-        String userName = scanner.nextLine();
+
         boolean loopValue = false;
-        if (userName.equals(user.getUserName())) {
+        if (user.getUserName().equals(user.getUserName())) {
+            user.userLogin();
             System.out.print("Wtiaj: " + user.getUserName() + "\n");
             System.out.print(showMenu());
             while (!loopValue) {
@@ -32,7 +33,7 @@ public class Menu {
                             System.out.print(showMenu());
                             break;
                         case 2:
-                            user.isUserLogged(userName);
+                            user.userLogged();
                             break;
                         case 3:
                             System.out.print("Dodaj komentarz: ");
@@ -59,6 +60,7 @@ public class Menu {
                             break;
                         case 6:
                             loopValue = true;
+                            user.userLogin();
                             System.out.print("Wylogowano z aplikacji");
                             break;
                         default:
@@ -73,5 +75,13 @@ public class Menu {
             System.out.print("Zły login");
         }
         scanner.close();
+    }
+    public forumUser searchUserByUsername(List<forumUser> listOfUsers, String usernameToSearch) {
+        for (forumUser user : listOfUsers) {
+            if (user.getUserName().equals(usernameToSearch)) {
+                return user;
+            }
+        }
+        return null; // Return null if the user is not found
     }
 }

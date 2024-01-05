@@ -21,7 +21,7 @@ class User {
 
         if (userFirstName.equals(getUserFirstName()) && userLastName.equals(getUserLastName()) && userEmail.equals(getUserEmail())) {
 
-            System.out.print("Konto użytkowanika Sebastian Łachut zostało usunięte" + "\n");
+            System.out.print("Konto użytkowanika zostało usunięte" + "\n");
         } else {
 
             System.out.print("Niepoprane dane do usunięcia konta" + "\n");
