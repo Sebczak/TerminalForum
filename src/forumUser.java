@@ -4,9 +4,10 @@ import java.util.List;
 class forumUser extends User {
 
     private String userName;
-    private int amountOfPosts = 0;
     private boolean isUserLogged = false;
     private final String newline = "\n";
+
+    public List<String> comments = new ArrayList<>();
 
     public forumUser(String userFirstName, String userLastName, String userGender, int userAge, String userEmail, String userName) {
 
@@ -14,7 +15,7 @@ class forumUser extends User {
         this.userName = userName;
     }
 
-    public void userLogged() {
+    public void userData() {
 
         isUserLogged = true;
             System.out.print(
@@ -37,7 +38,6 @@ class forumUser extends User {
             }
         }
 
-    public List<String> comments = new ArrayList<>();
 
     public String getUserName() {
 
@@ -46,6 +46,6 @@ class forumUser extends User {
 
     public int getAmountOfPosts() {
 
-        return this.amountOfPosts;
+        return this.comments.size();
     }
 }
