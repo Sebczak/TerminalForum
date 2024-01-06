@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -12,6 +11,7 @@ public class Main {
         listOfUsers.add(forumUser1);
         listOfUsers.add(forumUser2);
         Menu operation = new Menu();
+
         System.out.println("Podaj nazwę użytkownika: ");
         Scanner usernameScanner = new Scanner(System.in);
         String usernameToSearch = usernameScanner.nextLine().trim();

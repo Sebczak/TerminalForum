@@ -23,17 +23,18 @@ public class Menu {
             user.userLogin();
             System.out.print("Wtiaj: " + user.getUserName() + "\n");
             System.out.print(showMenu());
+
             while (!loopValue) {
                 try {
-                    System.out.print("Wybierz opcję z Menu: "
-                    );
+                    System.out.print("Wybierz opcję z Menu: ");
                     int selectOption = scanner.nextInt();
+
                     switch (selectOption) {
                         case 1:
                             System.out.print(showMenu());
                             break;
                         case 2:
-                            user.userLogged();
+                            user.userData();
                             break;
                         case 3:
                             System.out.print("Dodaj komentarz: ");
@@ -45,8 +46,7 @@ public class Menu {
                             System.out.print("Komentarze: " + user.comments + "\n");
                             break;
                         case 4:
-                            int commentCount = user.comments.size();
-                            System.out.print("Liczba postów użytkownika jest równa: " + commentCount + "\n");
+                            System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + "\n");
                             break;
                         case 5:
                             System.out.print("Podaj imię: ");
@@ -54,9 +54,9 @@ public class Menu {
                             System.out.print("Podaj nazwisko: ");
                             String lastName = scanner.next();
                             System.out.print("Podaj adres email: ");
-                            String Email = scanner.next();
+                            String email = scanner.next();
 
-                            user.deleteUserAccount(firstName, lastName, Email);
+                            user.deleteUserAccount(firstName, lastName, email);
                             break;
                         case 6:
                             loopValue = true;
