@@ -3,6 +3,9 @@ import java.util.Scanner;
 import java.util.*;
 
 public class Menu {
+    private boolean innerLoopValue = false;
+    private boolean outerLoopValue = false;
+    private String newline = "\n";
 
     public String showMenu() {
         return """
@@ -11,27 +14,84 @@ public class Menu {
                 3. Dodaj komentarz\s
                 4. Sprawdź liczbę postów\s
                 5. Usuń konto
-                6. Wyjdź z aplikacji\s
-                """;
+                6. Wyloguj z aplikacji\s
+                ===""";
     }
+
+    public String showRegisterMenu() {
+        return """
+            Wybierz opcję z Menu Rejestracji:
+            1. Rejestracja
+            2. Logowanie
+            3. Wyjdz z aplikacji
+            ===""";
+    }
+
+    private List<forumUser> listOfUsers = new ArrayList<>();
 
     public void performAction(forumUser user) {
         Scanner scanner = new Scanner(System.in);
 
-        boolean loopValue = false;
+        while(!outerLoopValue) {
+            System.out.println(showRegisterMenu());
+            try {
+                System.out.print("Wybrano opcje: ");
+                int selectLoginOption = scanner.nextInt();
+                switch (selectLoginOption) {
+                    case 1:
+                        listOfUsers.add(user.createUser());
+                        for (forumUser listOfUser : listOfUsers) {
+                            System.out.println(listOfUser);
+                        }
+                        break;
+                    case 2:
+
+                        System.out.println("Podaj nazwę użytkownika: ");
+                        Scanner usernameScanner = new Scanner(System.in);
+                        String usernameToSearch = usernameScanner.nextLine().trim();
+
+                        forumUser foundUser = searchUserByUsername(listOfUsers, usernameToSearch);
+
+                        if (foundUser != null) {
+                            loggedInActions(foundUser);
+                        } else {
+                            System.out.println("Użytkownik o podanej nazwie nie został znaleziony.");
+                        }
+                        break;
+                    case 3:
+                        System.out.print("Wylaczono aplikacje");
+                        outerLoopValue = true;
+                        break;
+                    default:
+                        System.out.print("Wybrałeś niepoprawną opcję." + newline);
+
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Wprowadź poprawny numer opcji." + newline);
+                scanner.nextLine();
+
+            }
+        }
+        scanner.close();
+    }
+
+
+    public void loggedInActions(forumUser user) {
+
+        Scanner scanner = new Scanner(System.in);
         if (user.getUserName().equals(user.getUserName())) {
             user.userLogin();
-            System.out.print("Wtiaj: " + user.getUserName() + "\n");
-            System.out.print(showMenu());
+            System.out.print("Wtiaj: " + user.getUserName() + newline);
+            System.out.println(showMenu());
 
-            while (!loopValue) {
+            while (!innerLoopValue) {
                 try {
                     System.out.print("Wybierz opcję z Menu: ");
-                    int selectOption = scanner.nextInt();
+                    int selectLoggedOption = scanner.nextInt();
 
-                    switch (selectOption) {
+                    switch (selectLoggedOption) {
                         case 1:
-                            System.out.print(showMenu());
+                            System.out.println(showMenu());
                             break;
                         case 2:
                             user.userData();
@@ -43,10 +103,10 @@ public class Menu {
 
                             user.comments.add(comment);
 
-                            System.out.print("Komentarze: " + user.comments + "\n");
+                            System.out.print("Komentarze: " + user.comments + newline);
                             break;
                         case 4:
-                            System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + "\n");
+                            System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + newline);
                             break;
                         case 5:
                             System.out.print("Podaj imię: ");
@@ -59,22 +119,22 @@ public class Menu {
                             user.deleteUserAccount(firstName, lastName, email);
                             break;
                         case 6:
-                            loopValue = true;
+                            innerLoopValue = true;
                             user.userLogin();
-                            System.out.print("Wylogowano z aplikacji");
+                            System.out.print("Wylogowano z aplikacji" + newline);
                             break;
                         default:
-                            System.out.print("Wybrałeś niepoprawną opcję." + "\n");
+                            System.out.print("Wybrałeś niepoprawną opcję." + newline);
                     }
                 } catch (InputMismatchException e) {
-                    System.out.print("Wprowadź poprawny numer opcji.\n");
+                    System.out.print("Wprowadź poprawny numer opcji." + newline);
                     scanner.nextLine();
                 }
             }
+            innerLoopValue = false;
         } else {
             System.out.print("Zły login");
         }
-        scanner.close();
     }
     public forumUser searchUserByUsername(List<forumUser> listOfUsers, String usernameToSearch) {
         for (forumUser user : listOfUsers) {
