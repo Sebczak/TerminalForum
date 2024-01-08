@@ -16,18 +16,6 @@ class User {
         this.userEmail = userEmail;
     }
 
-    //delete User Account - Need to create a Scanner class in order to verify the deletion method
-    public void deleteUserAccount(String userFirstName, String userLastName, String userEmail) {
-
-        if (userFirstName.equals(getUserFirstName()) && userLastName.equals(getUserLastName()) && userEmail.equals(getUserEmail())) {
-
-            System.out.print("Konto użytkowanika zostało usunięte" + "\n");
-        } else {
-
-            System.out.print("Niepoprane dane do usunięcia konta" + "\n");
-        }
-    }
-
     public String getUserFirstName() {
         return this.userFirstName;
     }

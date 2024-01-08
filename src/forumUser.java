@@ -57,6 +57,30 @@ class forumUser extends User {
             }
         }
 
+    public forumUser searchUserByUsername(List<forumUser> listOfUsers, String usernameToSearch) {
+        for (forumUser user : listOfUsers) {
+            if (user.getUserName().equals(usernameToSearch)) {
+                return user;
+            }
+        }
+        return null; // Return null if the user is not found
+    }
+
+    public boolean deleteUserAccount(List<forumUser> listOfUsers, String usernameToDelete, String userName) {
+        forumUser userToDelete = searchUserByUsername(listOfUsers, usernameToDelete);
+
+        if(userToDelete != null && userToDelete.getUserName().equals(userName)) {
+            listOfUsers.remove(userToDelete);
+            System.out.println("Uzytkownik:" + usernameToDelete + " zostal usuniety.");
+            return true;
+        } else if (userToDelete != null && !userToDelete.getUserName().equals(userName)) {
+            System.out.println("Podales nie swoja nazwe uzytkownika.");
+        } else {
+            System.out.println("Uzytkownik o takiej nazwie: " + usernameToDelete + " nie istnieje.");
+        }
+        return false;
+    }
+
         @Override
         public String toString() {
             return
