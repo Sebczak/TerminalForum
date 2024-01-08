@@ -24,6 +24,7 @@ public class Menu {
             1. Rejestracja
             2. Logowanie
             3. Wyjdz z aplikacji
+            4. Lista userow
             ===""";
     }
 
@@ -50,7 +51,7 @@ public class Menu {
                         Scanner usernameScanner = new Scanner(System.in);
                         String usernameToSearch = usernameScanner.nextLine().trim();
 
-                        forumUser foundUser = searchUserByUsername(listOfUsers, usernameToSearch);
+                        forumUser foundUser = user.searchUserByUsername(listOfUsers, usernameToSearch);
 
                         if (foundUser != null) {
                             loggedInActions(foundUser);
@@ -61,6 +62,11 @@ public class Menu {
                     case 3:
                         System.out.print("Wylaczono aplikacje");
                         outerLoopValue = true;
+                        break;
+                    case 4:
+                        for(forumUser User : listOfUsers) {
+                            System.out.println(User);
+                        }
                         break;
                     default:
                         System.out.print("Wybrałeś niepoprawną opcję." + newline);
@@ -109,14 +115,10 @@ public class Menu {
                             System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + newline);
                             break;
                         case 5:
-                            System.out.print("Podaj imię: ");
-                            String firstName = scanner.next();
-                            System.out.print("Podaj nazwisko: ");
-                            String lastName = scanner.next();
-                            System.out.print("Podaj adres email: ");
-                            String email = scanner.next();
+                            System.out.print("Podaj swoja nazwe uzytkownika aby usunac swoje konto: ");
+                            String usernameToDelete = scanner.next();
 
-                            user.deleteUserAccount(firstName, lastName, email);
+                            innerLoopValue = user.deleteUserAccount(listOfUsers, usernameToDelete, user.getUserName());
                             break;
                         case 6:
                             innerLoopValue = true;
@@ -135,13 +137,5 @@ public class Menu {
         } else {
             System.out.print("Zły login");
         }
-    }
-    public forumUser searchUserByUsername(List<forumUser> listOfUsers, String usernameToSearch) {
-        for (forumUser user : listOfUsers) {
-            if (user.getUserName().equals(usernameToSearch)) {
-                return user;
-            }
-        }
-        return null; // Return null if the user is not found
     }
 }
