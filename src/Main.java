@@ -8,7 +8,6 @@ public class Main {
         forumUser admin = new forumUser("Admin", "Admin", "Admin", 999, "Admin","admin");
         Menu operation = new Menu();
 
-
         operation.performAction(admin);
     }
 }
