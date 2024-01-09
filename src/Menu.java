@@ -1,3 +1,4 @@
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.*;
@@ -6,16 +7,19 @@ public class Menu {
     private boolean innerLoopValue = false;
     private boolean outerLoopValue = false;
     private String newline = "\n";
+    private PostStorage postStorage = new PostStorage();
 
     public String showMenu() {
         return """
                 1. Wyświetl Menu
                 2. Dane użytkownika\s
-                3. Dodaj komentarz\s
-                4. Sprawdź liczbę postów\s
-                5. Usuń konto
-                6. Wyloguj z aplikacji\s
-                ===""";
+                3. Dodaj Post\s
+                4. Sprawdz Posty\s
+                5. Dodaj komentarz\s
+                6. Sprawdź liczbę komentarzy\s
+                7. Usuń konto
+                8. Wyloguj z aplikacji\s
+                =============""";
     }
 
     public String showRegisterMenu() {
@@ -25,7 +29,7 @@ public class Menu {
             2. Logowanie
             3. Wyjdz z aplikacji
             4. Lista userow
-            ===""";
+            =============""";
     }
 
     private List<forumUser> listOfUsers = new ArrayList<>();
@@ -103,6 +107,18 @@ public class Menu {
                             user.userData();
                             break;
                         case 3:
+                            Post newPost = postStorage.createPost(user.getUserName());
+                            postStorage.addPost(newPost);
+
+                            System.out.println("Dodano post: " + newPost);
+                            break;
+                        case 4:
+                            System.out.println("Lista Postow");
+                            for (Map.Entry<Integer, Post> entry : postStorage.getPosts().entrySet()) {
+                                System.out.println(entry.getValue());
+                            }
+                            break;
+                        case 5:
                             System.out.print("Dodaj komentarz: ");
                             scanner.nextLine();
                             String comment = scanner.nextLine();
@@ -111,16 +127,16 @@ public class Menu {
 
                             System.out.print("Komentarze: " + user.comments + newline);
                             break;
-                        case 4:
+                        case 6:
                             System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + newline);
                             break;
-                        case 5:
+                        case 7:
                             System.out.print("Podaj swoja nazwe uzytkownika aby usunac swoje konto: ");
                             String usernameToDelete = scanner.next();
 
                             innerLoopValue = user.deleteUserAccount(listOfUsers, usernameToDelete, user.getUserName());
                             break;
-                        case 6:
+                        case 8:
                             innerLoopValue = true;
                             user.userLogin();
                             System.out.print("Wylogowano z aplikacji" + newline);
