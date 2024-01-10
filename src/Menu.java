@@ -111,6 +111,7 @@ public class Menu {
                             postStorage.addPost(newPost);
 
                             System.out.println("Dodano post: " + newPost);
+                            postStorage.movePostToSet(newPost, user.posts);
                             break;
                         case 4:
                             System.out.println("Lista Postow");
@@ -120,12 +121,14 @@ public class Menu {
                             break;
                         case 5:
                             System.out.print("Dodaj komentarz: ");
-                            scanner.nextLine();
+                            /*(scanner.nextLine();
                             String comment = scanner.nextLine();
 
-                            user.comments.add(comment);
+                            user.posts.add(newPost);
 
-                            System.out.print("Komentarze: " + user.comments + newline);
+                            System.out.print("Komentarze: " + user.posts + newline);
+                             */
+                            System.out.println(user.posts);
                             break;
                         case 6:
                             System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + newline);
