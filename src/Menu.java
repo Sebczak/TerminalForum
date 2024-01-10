@@ -114,24 +114,19 @@ public class Menu {
                             postStorage.movePostToSet(newPost, user.posts);
                             break;
                         case 4:
-                            System.out.println("Lista Postow");
+                            System.out.println("Lista wszystkich Postow");
                             for (Map.Entry<Integer, Post> entry : postStorage.getPosts().entrySet()) {
                                 System.out.println(entry.getValue());
                             }
                             break;
                         case 5:
-                            System.out.print("Dodaj komentarz: ");
-                            /*(scanner.nextLine();
-                            String comment = scanner.nextLine();
-
-                            user.posts.add(newPost);
-
-                            System.out.print("Komentarze: " + user.posts + newline);
-                             */
-                            System.out.println(user.posts);
+                            System.out.print("Liczba postow uzytkownika jest rowna: " + user.getAmountOfPosts() + newline
+                                    + "Lista postow uzytkownika: " + user.getUserName() + newline
+                                    + user.posts + newline);
                             break;
                         case 6:
-                            System.out.print("Liczba postów użytkownika jest równa: " + user.getAmountOfPosts() + newline);
+                            //Comments
+                            System.out.print("Work in progress");
                             break;
                         case 7:
                             System.out.print("Podaj swoja nazwe uzytkownika aby usunac swoje konto: ");
