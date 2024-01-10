@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 class forumUser extends User {
 
@@ -8,7 +6,7 @@ class forumUser extends User {
     private boolean isUserLogged = false;
     private final String newline = "\n";
 
-    public List<String> comments = new ArrayList<>();
+    public Set<Post> posts = new LinkedHashSet<>();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -45,7 +43,7 @@ class forumUser extends User {
                             + "Płeć: " + getUserGender() + newline
                             + "Wiek: " + getUserAge() + newline
                             + "Adres Email: " + getUserEmail() + newline
-                            + "Ilość postów na platformie: " + comments.size() + newline
+                            + "Ilość postów na platformie: " + posts.size() + newline
             );
         }
 
@@ -91,7 +89,7 @@ class forumUser extends User {
                             + "Płeć: " + getUserGender() + newline
                             + "Wiek: " + getUserAge() + newline
                             + "Adres Email: " + getUserEmail() + newline
-                            + "Ilość postów na platformie: " + comments.size() + newline;
+                            + "Ilość postów na platformie: " + posts.size() + newline;
         }
 
 
@@ -102,6 +100,6 @@ class forumUser extends User {
 
     public int getAmountOfPosts() {
 
-        return this.comments.size();
+        return this.posts.size();
     }
 }

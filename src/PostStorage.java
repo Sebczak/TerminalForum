@@ -21,6 +21,15 @@ public class PostStorage {
         return new Post(postId, postTitle, postContent, author);
     }
 
+    public Set<Post> movePostToSet(Post post, Set<Post> listOfPosts) {
+        for(Post p : Posts.values()) {
+            if(p.getPostAuthor().equals(post.getPostAuthor())) {
+                listOfPosts.add(p);
+            }
+        }
+        return listOfPosts;
+    }
+
     public void addPost(Post post) {
         Posts.put(post.getPostId(),post);
     }
