@@ -2,12 +2,12 @@ import java.util.*;
 
 public class PostStorage {
 
-    private Map<Integer, Post> Posts;
+    private Map<Integer, Post> posts;
     private int postCounter;
     Scanner scanner = new Scanner(System.in);
 
     public PostStorage() {
-        this.Posts = new HashMap<>();
+        this.posts = new HashMap<>();
         this.postCounter = 1;
     }
 
@@ -22,7 +22,7 @@ public class PostStorage {
     }
 
     public Set<Post> movePostToSet(Post post, Set<Post> listOfPosts) {
-        for(Post p : Posts.values()) {
+        for(Post p : posts.values()) {
             if(p.getPostAuthor().equals(post.getPostAuthor())) {
                 listOfPosts.add(p);
             }
@@ -31,11 +31,20 @@ public class PostStorage {
     }
 
     public void addPost(Post post) {
-        Posts.put(post.getPostId(),post);
+        posts.put(post.getPostId(),post);
     }
     
     public Map<Integer, Post> getPosts() {
-        return Posts;
+        return posts;
+    }
+
+    public Post getPostByIndex(int index) {
+        for (Map.Entry<Integer, Post> entry : posts.entrySet()) {
+            if (entry.getKey() == index) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     @Override
@@ -43,18 +52,18 @@ public class PostStorage {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PostStorage that = (PostStorage) o;
-        return Objects.equals(Posts, that.Posts);
+        return Objects.equals(posts, that.posts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Posts);
+        return Objects.hash(posts);
     }
 
     @Override
     public String toString() {
         return "PostStorage{" +
-                "Posts=" + Posts +
+                "Posts=" + posts +
                 '}';
     }
 }
