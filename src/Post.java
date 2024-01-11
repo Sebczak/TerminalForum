@@ -1,15 +1,26 @@
+import java.util.*;
 public class Post {
 
     private String postTitle;
     private String postContent;
     private String postAuthor;
     private int postId;
+    private List<Comment> comments;
 
     public Post(int postId, String postTitle, String postContent, String postAuthor) {
         this.postId = postId;
         this.postTitle = postTitle;
         this.postContent = postContent;
         this.postAuthor = postAuthor;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Post nr: " + getPostId() + " " +
+                "Tytul Posta:" + getPostTitle() + " " +
+                "Opis Posta:" + getPostContent() + " " +
+                "Author Posta:" + getPostAuthor() + " ";
     }
 
     public int getPostId() {
@@ -28,13 +39,13 @@ public class Post {
         return postAuthor;
     }
 
-    @Override
-    public String toString() {
-        return "Post{" +
-                "Index: " + getPostId() + '\'' +
-                " postTitle='" + getPostTitle() + '\'' +
-                ", postContent='" + getPostContent() + '\'' +
-                ", postAuthor='" + getPostAuthor() + '\'' +
-                '}';
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void addComment(Comment comment) {
+        if(comments == null) {
+            comments = new ArrayList<>();
+        }
     }
 }

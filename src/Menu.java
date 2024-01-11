@@ -8,17 +8,22 @@ public class Menu {
     private boolean outerLoopValue = false;
     private String newline = "\n";
     private PostStorage postStorage = new PostStorage();
+    private CommentStorage commentStorage = new CommentStorage();
+    private Post newPost;
+
+    private PostCommentViewer postCommentViewer = new PostCommentViewer(postStorage, commentStorage);
+
 
     public String showMenu() {
         return """
                 1. Wyświetl Menu
                 2. Dane użytkownika\s
                 3. Dodaj Post\s
-                4. Sprawdz Posty\s
-                5. Dodaj komentarz\s
-                6. Sprawdź liczbę komentarzy\s
-                7. Usuń konto
-                8. Wyloguj z aplikacji\s
+                4. Sprawdz wszystkie Posty\s
+                5. Sprawdz Posty uzytkownika\s
+                6. Dodaj komentarz do posta\s
+                8. Usuń konto
+                9. Wyloguj z aplikacji\s
                 =============""";
     }
 
@@ -107,15 +112,15 @@ public class Menu {
                             user.userData();
                             break;
                         case 3:
-                            Post newPost = postStorage.createPost(user.getUserName());
+                            newPost = postStorage.createPost(user.getUserName());
                             postStorage.addPost(newPost);
 
-                            System.out.println("Dodano post: " + newPost);
+                            System.out.println("Dodano post: " + newline + newPost);
                             postStorage.movePostToSet(newPost, user.posts);
                             break;
                         case 4:
                             System.out.println("Lista wszystkich Postow");
-                            for (Map.Entry<Integer, Post> entry : postStorage.getPosts().entrySet()) {
+                            for(Map.Entry<Integer, Post> entry : postStorage.getPosts().entrySet()) {
                                 System.out.println(entry.getValue());
                             }
                             break;
@@ -125,16 +130,18 @@ public class Menu {
                                     + user.posts + newline);
                             break;
                         case 6:
-                            //Comments
-                            System.out.print("Work in progress");
+                            postCommentViewer.viewPostsAndComments(user);
                             break;
                         case 7:
+                            postCommentViewer.displayPostWithComments();
+                            break;
+                        case 8:
                             System.out.print("Podaj swoja nazwe uzytkownika aby usunac swoje konto: ");
                             String usernameToDelete = scanner.next();
 
                             innerLoopValue = user.deleteUserAccount(listOfUsers, usernameToDelete, user.getUserName());
                             break;
-                        case 8:
+                        case 9:
                             innerLoopValue = true;
                             user.userLogin();
                             System.out.print("Wylogowano z aplikacji" + newline);
