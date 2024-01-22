@@ -1,10 +1,10 @@
 class User {
 
-    private String userFirstName;
-    private String userLastName;
-    private String userGender;
-    private int userAge;
-    private String userEmail;
+    private transient String userFirstName;
+    private transient String userLastName;
+    private transient String userGender;
+    private transient int userAge;
+    private transient String userEmail;
 
     //Creating a User Constructor
     public User(String userFirstName, String userLastName, String userGender, int userAge, String userEmail) {

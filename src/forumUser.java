@@ -1,6 +1,7 @@
 import java.util.*;
+import java.io.Serializable;
 
-class forumUser extends User {
+class forumUser extends User implements Serializable{
 
     private String userName;
     private boolean isUserLogged = false;
