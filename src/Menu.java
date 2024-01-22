@@ -1,4 +1,5 @@
 
+import java.io.*;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.*;
@@ -12,6 +13,11 @@ public class Menu {
     private Post newPost;
 
     private PostCommentViewer postCommentViewer = new PostCommentViewer(postStorage, commentStorage);
+
+    FileOutputStream fo = new FileOutputStream("userData.txt", true);
+
+    public Menu() throws IOException {
+    }
 
 
     public String showMenu() {
@@ -49,10 +55,16 @@ public class Menu {
                 int selectLoginOption = scanner.nextInt();
                 switch (selectLoginOption) {
                     case 1:
-                        listOfUsers.add(user.createUser());
-                        for (forumUser listOfUser : listOfUsers) {
-                            System.out.println(listOfUser);
-                        }
+                        forumUser newUser = user.createUser();
+                        listOfUsers.add(newUser);
+                        System.out.println(newUser);
+                        fo.write(("First name: " + newUser.getUserFirstName() +
+                                " Last name: " + newUser.getUserLastName() +
+                                " Gender: " + newUser.getUserGender() +
+                                " User age: " + newUser.getUserAge() +
+                                " User email: " + newUser.getUserEmail() +
+                                " Username: " + newUser.getUserName() +
+                                " Amount of posts created by user: " + newUser.getAmountOfPosts() + newline).getBytes());
                         break;
                     case 2:
 
@@ -81,7 +93,7 @@ public class Menu {
                         System.out.print("Wybrałeś niepoprawną opcję." + newline);
 
                 }
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | IOException e) {
                 System.out.print("Wprowadź poprawny numer opcji." + newline);
                 scanner.nextLine();
 
