@@ -1,19 +1,23 @@
 class User {
 
-    private transient String userFirstName;
-    private transient String userLastName;
-    private transient String userGender;
-    private transient int userAge;
-    private transient String userEmail;
+    private String userFirstName;
+    private String userLastName;
+    private String userGender;
+    private int userAge;
+    private String userEmail;
 
     //Creating a User Constructor
-    public User(String userFirstName, String userLastName, String userGender, int userAge, String userEmail) {
+    public User(String userFirstName, String userLastName, int userAge, String userGender, String userEmail) {
 
         this.userFirstName = userFirstName;
         this.userLastName = userLastName;
-        this.userGender = userGender;
         this.userAge = userAge;
+        this.userGender = userGender;
         this.userEmail = userEmail;
+    }
+
+    public User() {
+
     }
 
     public String getUserFirstName() {

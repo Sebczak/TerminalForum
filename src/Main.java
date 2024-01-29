@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-        forumUser admin = new forumUser("Admin", "Admin", "Admin", 999, "Admin","admin");
+        forumUser admin = new forumUser();
         Menu operation = new Menu();
 
         operation.performAction(admin);

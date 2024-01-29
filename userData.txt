@@ -1,2 +1,1 @@
-First name: Sebastian Last name: Lachut Gender: M User age: 24 User email: seb@gmail.com Username: Sebczak Amount of posts created by user: 0
-First name: Karol Last name: Kowalski Gender: K User age: 14 User email: kk@gmail.com Username: Kk Amount of posts created by user: 0
+{[seba,sebastian,lachut,25,m,seba@,0]}
