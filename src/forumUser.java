@@ -1,7 +1,6 @@
 import java.util.*;
-import java.io.Serializable;
 
-class forumUser extends User implements Serializable{
+class forumUser extends User {
 
     private String userName;
     private boolean isUserLogged = false;
@@ -9,28 +8,34 @@ class forumUser extends User implements Serializable{
 
     public Set<Post> posts = new LinkedHashSet<>();
 
-    Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
-    public forumUser(String userFirstName, String userLastName, String userGender, int userAge, String userEmail, String userName) {
+    public forumUser() {
+        super();
+    }
 
-        super(userFirstName, userLastName, userGender, userAge, userEmail);
+    public forumUser(String userFirstName, String userLastName, int userAge, String userGender, String userEmail, String userName) {
+
+        super(userFirstName, userLastName, userAge, userGender, userEmail);
         this.userName = userName;
     }
 
     public forumUser createUser() {
+        System.out.print("Podaj swoj username: ");
+        String username = scanner.next();
         System.out.print("Podaj imię: ");
         String firstName = scanner.next();
         System.out.print("Podaj nazwisko: ");
         String lastName = scanner.next();
-        System.out.print("Podaj swoja plec: ");
-        String gender = scanner.next();
         System.out.print("Podaj swoj wiek: ");
         int age = scanner.nextInt();
+        System.out.print("Podaj swoja plec: ");
+        String gender = scanner.next();
         System.out.print("Podaj swoj email: ");
         String email = scanner.next();
-        System.out.print("Podaj swoj username: ");
-        String username = scanner.next();
-        return new forumUser(firstName, lastName, gender, age, email,username);
+        forumUser newUser = new forumUser(firstName, lastName, age, gender, email, username);
+        System.out.println(newUser);
+        return newUser;
     }
 
     public void userData() {
@@ -49,11 +54,7 @@ class forumUser extends User implements Serializable{
         }
 
         public void userLogin() {
-            if(!isUserLogged) {
-                isUserLogged = true;
-            } else {
-                isUserLogged = false;
-            }
+            isUserLogged = !isUserLogged;
         }
 
     public forumUser searchUserByUsername(List<forumUser> listOfUsers, String usernameToSearch) {
@@ -82,17 +83,8 @@ class forumUser extends User implements Serializable{
 
         @Override
         public String toString() {
-            return
-                    "Stworzono użytkownika " + getUserName() + newline
-                            + "Nazwa użytkownika: " + getUserName() + newline
-                            + "Dane podstawowe: " + newline + getUserFirstName()
-                            + " " + getUserLastName() + newline
-                            + "Płeć: " + getUserGender() + newline
-                            + "Wiek: " + getUserAge() + newline
-                            + "Adres Email: " + getUserEmail() + newline
-                            + "Ilość postów na platformie: " + posts.size() + newline;
+            return "{[" + getUserName() + ',' + getUserFirstName() + ',' + getUserLastName() + ',' + getUserAge() + ',' + getUserGender() + ',' + getUserEmail() + ',' + getAmountOfPosts() + "]}";
         }
-
 
     public String getUserName() {
 

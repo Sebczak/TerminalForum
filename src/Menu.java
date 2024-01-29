@@ -12,9 +12,10 @@ public class Menu {
     private CommentStorage commentStorage = new CommentStorage();
     private Post newPost;
 
+    private List<forumUser> listOfUsers = new ArrayList<>();
     private PostCommentViewer postCommentViewer = new PostCommentViewer(postStorage, commentStorage);
 
-    FileOutputStream fo = new FileOutputStream("userData.txt", true);
+    FileOutputStream fileOutputStream = new FileOutputStream("userData.txt", true);
 
     public Menu() throws IOException {
     }
@@ -43,11 +44,48 @@ public class Menu {
             =============""";
     }
 
-    private List<forumUser> listOfUsers = new ArrayList<>();
+    public void readUserDataFromFile() throws IOException {
+        FileReader fileReader = new FileReader("userData.txt");
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-    public void performAction(forumUser user) {
+        String line;
+
+        while ((line = bufferedReader.readLine()) != null) {
+            forumUser user = parseUserData(line);
+
+            if (user != null) {
+                listOfUsers.add(user);
+            }
+        }
+
+        bufferedReader.close();
+    }
+
+    private forumUser parseUserData(String line) {
+        if (line.startsWith("{[") && line.endsWith("]}")) {
+
+            String[] userData = line.substring(2, line.length() - 2).split(",");
+
+            if (userData.length == 7) {
+                String username = userData[0].trim();
+                String firstName = userData[1].trim();
+                String lastName = userData[2].trim();
+                int age = Integer.parseInt(userData[3].trim());
+                String gender = userData[4].trim();
+                String email = userData[5].trim();
+                int amountOfPosts = Integer.parseInt(userData[6].trim());
+
+                return new forumUser(firstName, lastName, age, gender, email, username);
+            }
+        }
+
+        System.out.println("Error parsing user data: " + line);
+        return null;
+    }
+
+    public void performAction(forumUser user) throws IOException {
         Scanner scanner = new Scanner(System.in);
-
+        readUserDataFromFile();
         while(!outerLoopValue) {
             System.out.println(showRegisterMenu());
             try {
@@ -57,17 +95,9 @@ public class Menu {
                     case 1:
                         forumUser newUser = user.createUser();
                         listOfUsers.add(newUser);
-                        System.out.println(newUser);
-                        fo.write(("First name: " + newUser.getUserFirstName() +
-                                " Last name: " + newUser.getUserLastName() +
-                                " Gender: " + newUser.getUserGender() +
-                                " User age: " + newUser.getUserAge() +
-                                " User email: " + newUser.getUserEmail() +
-                                " Username: " + newUser.getUserName() +
-                                " Amount of posts created by user: " + newUser.getAmountOfPosts() + newline).getBytes());
+                        fileOutputStream.write((newUser + newline).getBytes());
                         break;
                     case 2:
-
                         System.out.println("Podaj nazwę użytkownika: ");
                         Scanner usernameScanner = new Scanner(System.in);
                         String usernameToSearch = usernameScanner.nextLine().trim();
@@ -85,8 +115,8 @@ public class Menu {
                         outerLoopValue = true;
                         break;
                     case 4:
-                        for(forumUser User : listOfUsers) {
-                            System.out.println(User);
+                        for (forumUser u : listOfUsers) {
+                            System.out.println(u);
                         }
                         break;
                     default:
